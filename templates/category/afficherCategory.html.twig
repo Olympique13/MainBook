@@ -1,0 +1,55 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Categorie
+{% endblock %}
+
+{% block body %}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+
+		.textCategory {
+			text-align: center;
+		}
+
+		table {
+			font-family: arial, sans-serif;
+			border-collapse: collapse;
+			width: 100%;
+			text-align: center;
+		}
+
+		td,
+		th {
+			border: 1px solid #dddddd;
+			text-align: center;
+			padding: 8px;
+		}
+	</style>
+
+	<div class="example-wrapper">
+		<h1 class="textCategory">
+			Voici nos catégories :
+		</h1>
+		{% if categories|length > 0 %}
+			<table>
+				<tr>
+					<th>Titre</th>
+				</tr>
+				{% for categorie in categories %}
+					<tr>
+						<td>{{ categorie.name }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		{% else %}
+			<h3>Il n'y a aucune catégorie</h3>
+		{% endif %}
+	</div>
+
+
+{% endblock %}

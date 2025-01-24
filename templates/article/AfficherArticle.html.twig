@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Nos Articles
+{% endblock %}
+
+{% block body %}
+	<div class="grid grid-cols-4 gap-4">
+		<h1 class="text-3xl font-bold text-center mb-6">Nos Articles</h1>
+		<div></div>
+		<div></div>
+		{{ form_start(searchForm, {'attr': {'class': 'mb-6 flex'}}) }}
+		{{ form_widget(searchForm.recherche, {'attr': {'class': 'mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-m', 'placeholder': 'Tapez votre recherche'}}) }}
+		{{ form_errors(searchForm.recherche) }}
+		{# <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Rechercher</button> #}
+		{{ form_end(searchForm) }}
+	</div>
+
+	<div id="articles-container">
+		{% if articles|length > 0 %}
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+				{% for article in articles %}
+					<div class="bg-white border border-gray-200 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+						<a href="{{ path('article_info', {'slug' : article.slug}) }}">
+							<h2 class="text-2xl font-bold mb-3 text-gray-800 hover:text-blue-600 transition-colors">{{ article.title }}</h2>
+						</a>
+						<p class="text-gray-600 mb-4">{{ article.fastContent }}</p>
+						<a href="{{ path('article_info', {'slug' : article.slug}) }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 transition-colors">
+							Lire la suite
+							<svg class="w-4 h-4 ml-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 14 10">
+								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+							</svg>
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+		{% else %}
+			<p class="text-center text-gray-700 text-lg mt-8">Il n'y a pas encore d'articles disponibles.</p>
+		{% endif %}
+	</div>
+</div>{% endblock %}

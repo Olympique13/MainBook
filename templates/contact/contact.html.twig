@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nous contacter{% endblock %}
+
+{# {% block body %}
+<div class="container mx-auto">
+		<h1 class="text-2xl font-bold mb-5">Ecrivez nous :</h1>
+
+        {{ form_start(ContactForm) }}
+        {{ form_errors(ContactForm) }}
+<div class="space-y-6">
+	<div class="space-y-4">
+		<div>
+			{{ form_label(ContactForm.nom, "nom", {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+			{{ form_widget(ContactForm.nom, {'attr': {'class': 'mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md', 'placeholder': 'Nom'}}) }}
+			{{ form_errors(ContactForm.nom) }}
+		</div>
+        <div>
+			{{ form_label(ContactForm.prenom, "prenom", {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+			{{ form_widget(ContactForm.prenom, {'attr': {'class': 'mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md', 'placeholder': 'prenom'}}) }}
+		</div>
+        <div>
+			{{ form_label(ContactForm.email, "email", {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+			{{ form_widget(ContactForm.email, {'attr': {'class': 'mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md', 'placeholder': 'Votre @Mail'}}) }}
+		</div>
+        <div>
+			{{ form_label(ContactForm.sujet, "sujet", {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+			{{ form_widget(ContactForm.sujet, {'attr': {'class': 'mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md', 'placeholder': 'De quoi voulez-vous nous parler ?'}}) }}
+		</div>
+        <div>
+			{{ form_label(ContactForm.message, "message", {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+			{{ form_widget(ContactForm.message, {'attr': {'class': 'mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md', 'placeholder': 'Expliquez ici'}}) }}
+		</div>
+    </div>
+        <div>
+			<button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Enregistrer</button>
+		</div>
+        {{form_end(ContactForm)}}
+</div>
+
+</div>
+{% endblock %} #}
+
+
+{% block body %}
+	<div class="container mx-auto">
+		<h1 class="text-2xl font-bold mb-5">Ajouter un article</h1>
+
+		{{ form_start(ContactForm) }}
+		{{ form_errors(ContactForm) }}
+
+		<div class="space-y-6">
+			<div class="space-y-4">
+				<div>
+                    {{ form_label(ContactForm.nom, "nom", {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                    {{ form_widget(ContactForm.nom, {'attr': {'class': 'mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md', 'placeholder': 'Nom'}}) }}
+                    {{ form_errors(ContactForm.nom) }}
+                </div>
+                <div>
+                    {{ form_label(ContactForm.prenom, "prenom", {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                    {{ form_widget(ContactForm.prenom, {'attr': {'class': 'mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md', 'placeholder': 'prenom'}}) }}
+                </div>
+                <div>
+                    {{ form_label(ContactForm.email, "email", {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                    {{ form_widget(ContactForm.email, {'attr': {'class': 'mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md', 'placeholder': 'Votre @Mail'}}) }}
+                </div>
+                <div>
+                    {{ form_label(ContactForm.sujet, "sujet", {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                    {{ form_widget(ContactForm.sujet, {'attr': {'class': 'mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md', 'placeholder': 'De quoi voulez-vous nous parler ?'}}) }}
+                </div>
+                <div>
+                    {{ form_label(ContactForm.message, "message", {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                    {{ form_widget(ContactForm.message, {'attr': {'class': 'mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md', 'placeholder': 'Expliquez ici'}}) }}
+                </div>
+			</div>
+			<div>
+				<button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Enregistrer</button>
+			</div>
+		</div>
+        {{form (ContactForm)}}
+
+		{{ form_end(ContactForm) }}
+	</div>
+{% endblock %}
