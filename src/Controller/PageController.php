@@ -12,6 +12,16 @@ class PageController extends AbstractController
     #[Route('/', name: 'app_accueil')]
     public function index(): Response
     {
-        return $this->render('page/accueil.html.twig', array());
+        $produits = [
+            [
+                'nom_produit' => 'Produit 1',
+                'desc_produit' => 'Description du produit 1',
+                'prix_produit' => 10,
+            ],
+        ];
+
+        return $this->render('page/accueil.html.twig', [
+            'produits' => $produits
+        ]);
     }
 }
