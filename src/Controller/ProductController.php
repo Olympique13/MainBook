@@ -18,19 +18,23 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         $category = $form->get('category')->getData();
-        $products = $productRepository->findByCategory($category);
 
-        $product = $productRepository->findAll();
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($category) {
+                $products = $productRepository->findByCategory($category);
+            } else {
+                $products = $productRepository->findAll();
+            }
+        } else {
+            $products = $productRepository->findAll();
+        }
 
         return $this->render('product/allProduct.html.twig', [
-            'produit' => $product,
-            'products' => $products,
+            'produit' => $products,
             'form' => $form->createView(),
         ]);
     }
 
-
-    
     #[Route('/product/{slug}', name: 'product_detail')]
     public function slugProduct(string $slug, ProductRepository $productRepository): Response
     {

@@ -18,7 +18,7 @@ class FiltreProductType extends AbstractType
                 'choice_label' => 'name',
                 'placeholder' => 'Toutes les catégories',
                 'required' => false,
-                'label' => 'Filtrer par catégorie',
+                'label' => 'Catégorie',
             ]);
     }
 
