@@ -25,12 +25,19 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
+    #[ORM\Column(length: 100)]
+    private ?string $catchPhrase = null;
+
     #[ORM\Column]
     private ?float $price = null;
     
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
+
+    #[ORM\Column(length: 255)]
+    #[Gedmo\Slug(fields: ['name'])]
+    private ?string $slug = null;
 
     #[Vich\UploadableField(mapping: 'products', fileNameProperty: 'imageName', size: 'imageSize')]
     #[Assert\File(maxSize: '20M', mimeTypes: ['image/jpeg', 'image/png', 'image/gif'])]
@@ -50,6 +57,7 @@ class Product
     #[Gedmo\Timestampable(on: 'update')]
     private ?\DateTimeImmutable $updatedAt = null;
 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -63,6 +71,18 @@ class Product
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getCatchPhrase(): ?string
+    {
+        return $this->catchPhrase;
+    }
+
+    public function setCatchPhrase(string $catchPhrase): static
+    {
+        $this->catchPhrase = $catchPhrase;
 
         return $this;
     }
@@ -99,6 +119,17 @@ class Product
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+        return $this;
+    }
+    
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+    
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
         return $this;
     }
 

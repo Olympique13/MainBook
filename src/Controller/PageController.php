@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,15 +11,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PageController extends AbstractController
 {
     #[Route('/', name: 'app_accueil')]
-    public function index(): Response
+    public function index(ProductRepository $productRepository): Response
     {
-        $produits = [
-            [
-                'nom_produit' => 'Produit 1',
-                'desc_produit' => 'Description du produit 1',
-                'prix_produit' => 10,
-            ],
-        ];
+        $produits = $productRepository->findAll();
 
         return $this->render('page/accueil.html.twig', [
             'produits' => $produits
