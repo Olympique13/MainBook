@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 
 class ProductCrudController extends AbstractCrudController
@@ -28,7 +29,7 @@ class ProductCrudController extends AbstractCrudController
             TextField::new('name', 'Titre du produit'),
             TextField::new('catchPhrase', 'Phrase d\'accroche'),
             TextEditorField::new('description', 'Description'),
-            IntegerField::new('price', 'Prix (€)'),
+            MoneyField::new('price', 'Prix (€)')->setCurrency('EUR')->setStoredAsCents(false),
             SlugField::new('slug', 'Slug')->setTargetFieldName('name')->hideOnIndex(),
             TextField::new('imageFile', 'Image')->setFormType(VichFileType::class)->onlyOnForms(),
             ImageField::new('imageName', 'Couverture')->setBasePath('images/products')->onlyOnIndex(),

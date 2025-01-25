@@ -9,11 +9,7 @@ if ( !Encore.isRuntimeEnvironmentConfigured() ) {
 Encore
     .setOutputPath( 'public/build/' )
     .setPublicPath( '/build' )
-    .enablePostCssLoader( ( options ) => {
-        options.postcssOptions = {
-            config: './postcss.config.js'
-        }
-    } )
+    .enablePostCssLoader()
 
     /*
      * ENTRY CONFIG

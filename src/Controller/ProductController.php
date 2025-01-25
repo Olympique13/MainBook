@@ -2,20 +2,30 @@
 
 namespace App\Controller;
 
+use App\Form\FiltreProductType;
 use App\Repository\ProductRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProductController extends AbstractController
 {
     #[Route('/product', name: 'app_product')]
-    public function product(ProductRepository $productRepository): Response
+    public function product(Request $request, ProductRepository $productRepository): Response
     {
+        $form = $this->createForm(FiltreProductType::class);
+        $form->handleRequest($request);
+
+        $category = $form->get('category')->getData();
+        $products = $productRepository->findByCategory($category);
+
         $product = $productRepository->findAll();
 
         return $this->render('product/allProduct.html.twig', [
             'produit' => $product,
+            'products' => $products,
+            'form' => $form->createView(),
         ]);
     }
 

@@ -28,7 +28,7 @@ class Product
     #[ORM\Column(length: 100)]
     private ?string $catchPhrase = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'float')]
     private ?float $price = null;
     
     #[ORM\ManyToOne(inversedBy: 'products')]
@@ -40,7 +40,7 @@ class Product
     private ?string $slug = null;
 
     #[Vich\UploadableField(mapping: 'products', fileNameProperty: 'imageName', size: 'imageSize')]
-    #[Assert\File(maxSize: '20M', mimeTypes: ['image/jpeg', 'image/png', 'image/gif'])]
+    #[Assert\File(maxSize: '20M', mimeTypes: ['image/pdf', 'image/png', 'image/gif'])]
     private ?File $imageFile = null;
 
     #[ORM\Column(length: 255)]
