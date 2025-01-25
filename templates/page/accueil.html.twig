@@ -8,35 +8,33 @@
 
 	<div class="bg-white">
 		<div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-			<h2 class="text-2xl font-bold tracking-tight text-gray-900">Customers also purchased</h2>
+			<h2 class="text-2xl font-bold tracking-tight text-gray-900">Nos produits populaires !</h2>
 
 
 			{# boucle for produit in produits #}
-			<div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-				{% for product in produits %}
-					<div class="group relative">
-						<div class="relative">
-							<img src="images/products/{{product.imageName}}" alt="Image du produit : {{product.name}}" class="aspect-square w-full rounded-md bg-gray-200 object-cover lg:aspect-auto lg:h-80">
-							<div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity">
-								<span class="text-white text-center">{{ product.catchPhrase }}</span>
+			<section id="productList" class="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-10 mt-10 mb-5">
+				{% for product in produits [:3]%}
+					<div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
+						<a href="{{ path('product_detail', {'slug': product.slug}) }}">
+							<img src="images/products/{{product.imageName}}" alt="Product" class="h-80 w-72 object-cover rounded-t-xl"/>
+							<div class="px-4 py-3 w-72">
+								<span class="text-gray-400 mr-3 uppercase text-xs">{{product.category}}</span>
+								<p class="text-lg font-semibold text-black truncate block capitalize">{{product.name}}</p>
+								<div class="flex items-center">
+									<p class="text-m font-semibold text-black cursor-auto my-3">{{product.price|number_format(2, ',')}}€</p>
+									<div class="ml-auto">
+										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bag-plus" viewbox="0 0 16 16">
+											<path fill-rule="evenodd" d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z"/>
+											<path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+										</svg>
+									</div>
+								</div>
 							</div>
-						</div>
-						<div class="mt-4 flex justify-between">
-							<div>
-								<h3 class="text-sm font-semibold text-gray-700">
-									<a href="{{path('product_detail', {'slug': product.slug})}}" class="group-hover:text-gray-900">
-										{{product.name}}
-									</a>
-								</h3>
-								<p class="mt-1 text-sm text-gray-500">{{ product.price }}</p>
-							</div>
-							<p class="text-sm font-medium text-gray-900">{{ product.price }}€</p>
-						</div>
+						</a>
 					</div>
 				{% endfor %}
 				{# fin de boucle for #}
-
-			</div>
+			</section>
 		</div>
 	</div>
 
