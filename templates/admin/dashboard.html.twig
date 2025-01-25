@@ -1,0 +1,75 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content %}
+
+	<section>
+		<h1 style="padding : 3vh 0;">
+			Bienvenue sur le panel admin de BOOKMAIN !</h1>
+
+		<p>Vous pouvez revenir à tout moment sur cette documentation en cliquant sur la maison.</p>
+		<p>
+			Possibilité d'agrandir/réduire le menu en cliquant sur la bordure de gauche.</p>
+		<h2>
+			Comment créer un produit ?
+		</h2>
+
+
+		<h4>1/ Créer une catégory de produit</h4>
+		<p>
+			Rendez-vous dans la section "Article" puis selectionner la rubrique "Catégorie".
+		</p>
+		<p>
+			Dans cette rubrique vous avez plusieurs possibilités :
+		</p>
+		<ul>
+			<li>Création d'une nouvelle catégorie -> Bouton "Créer Catégorie"</li>
+			<ul>
+				<li>Entrez les informations requises</li>
+			</ul>
+			<li>Modification d'une catégorie -> bouton "..." puis "Modifier"</li>
+			<li>Suppression d'une catégorie -> bouton "..." puis "Supprimer" (Veillez à ce qu'aucun produit ne soit associé à la catégorie, sinon ERREUR)</li>
+		</ul>
+
+
+		<h4>2/ Créer le produit</h4>
+		<p>
+			Rendez-vous dans la section "Article" puis selectionner la rubrique "Produits".
+		</p>
+		<p>
+			Dans cette rubrique vous avez plusieurs possibilités :
+		</p>
+		<ul>
+			<li>Création d'un nouveau produit -> Bouton "Créer Produit"</li>
+			<ul>
+				<li>Entrez les informations requises</li>
+				<li>Fichiers pas plus de 150Mo</li>
+			</ul>
+			<li>Modification d'un produit -> bouton "..." puis "Modifier"</li>
+			<li>Suppression d'un produit -> bouton "..." puis "Supprimer"</li>
+		</ul>
+
+
+		<h2>
+			Les contraintes :
+		</h2>
+		<p>Plusieurs contraintes ont été définies concernant le nombre de caractères de certains champs, pour un visuel propre au format mobile.</p>
+		<ul>
+			<li>
+				Le champ "Titre du produit" est limité à
+				<b>255</b>
+				caractères.</li>
+			<li>
+				Les images ne peuvent pas dépasser les 2Mo.
+			</li>
+			<li>
+				<b>Toujours</b>
+				avoir une catégorie associé à un produit.
+			</li>
+			<li>
+				Les prix sont sous forme d'<b>entier</b>
+				(19€ et pas 19.00€)</li>
+		</ul>
+
+	</section>
+
+{% endblock %}

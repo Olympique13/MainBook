@@ -30,9 +30,9 @@ class Product
     
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Category $Category = null;
+    private ?Category $category = null;
 
-    #[Vich\UploadableField(mapping: 'Product', fileNameProperty: 'imageName', size: 'imageSize')]
+    #[Vich\UploadableField(mapping: 'products', fileNameProperty: 'imageName', size: 'imageSize')]
     #[Assert\File(maxSize: '20M', mimeTypes: ['image/jpeg', 'image/png', 'image/gif'])]
     private ?File $imageFile = null;
 
@@ -93,12 +93,12 @@ class Product
     
     public function getCategory(): ?Category
     {
-        return $this->Category;
+        return $this->category;
     }
     
-    public function setCategory(?Category $Category): static
+    public function setCategory(?Category $category): static
     {
-        $this->Category = $Category;
+        $this->category = $category;
         return $this;
     }
 

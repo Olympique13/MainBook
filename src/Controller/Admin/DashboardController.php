@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
-use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
 class DashboardController extends AbstractDashboardController
@@ -22,9 +21,7 @@ class DashboardController extends AbstractDashboardController
         // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
         //
 
-        return $this->render('admin/admin.html.twig');
-        // $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-        // return $this->redirect($adminUrlGenerator->setController(ArticleCrudController::class)->generateUrl());
+        return $this->render('admin/dashboard.html.twig');
     }
 
     public function configureDashboard(): Dashboard
@@ -36,9 +33,15 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
+        yield MenuItem::section('Accueil');
+        yield MenuItem::linkToDashboard('Retour à la page d\'accueil', 'fa fa-backward', '/');
         yield MenuItem::linkToDashboard('Accueil', 'fa fa-home');
+
+        yield MenuItem::section('Articles');
         yield MenuItem::linkToCrud('Produits', 'fas fa-newspaper', Product::class);
         yield MenuItem::linkToCrud('Catégorie', 'fas fa-layer-group', Category::class);
+
+        yield MenuItem::section('Clients');
         yield MenuItem::linkToCrud('Utilisateur', 'fas fa-user', User::class);
 
     }
