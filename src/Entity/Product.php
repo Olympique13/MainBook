@@ -49,6 +49,13 @@ class Product
     #[ORM\Column]
     private ?int $imageSize = null;
 
+    #[Vich\UploadableField(mapping: 'pdf', fileNameProperty: 'fileName')]
+    #[Assert\File(maxSize: '20M', mimeTypes: ['application/pdf'], mimeTypesMessage:"Seulement les PDF sont acceptés", maxSizeMessage:"Le PDF ne doit pas dépasser les 20M")]
+    private ?File $file = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $fileName = null;
+
     #[ORM\Column]
     #[Gedmo\Timestampable(on: 'create')]
     private ?\DateTimeImmutable $createdAt = null;
@@ -163,6 +170,31 @@ class Product
     public function setImageSize(int $imageSize): static
     {
         $this->imageSize = $imageSize;
+
+        return $this;
+    }
+
+    public function setFile(?File $file = null): void
+    {
+        $this->file = $file;
+        if ($file) {
+        $this->updatedAt = new \DateTimeImmutable();
+    }
+    }
+
+    public function getFile(): ?File
+    {
+        return $this->file;
+    }
+
+    public function getFileName(): ?string
+    {
+        return $this->fileName;
+    }
+
+    public function setFileName(string $fileName): static
+    {
+        $this->fileName = $fileName;
 
         return $this;
     }

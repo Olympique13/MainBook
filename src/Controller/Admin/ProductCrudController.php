@@ -13,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 
 class ProductCrudController extends AbstractCrudController
 {
@@ -31,6 +32,14 @@ class ProductCrudController extends AbstractCrudController
             TextEditorField::new('description', 'Description'),
             MoneyField::new('price', 'Prix (€)')->setCurrency('EUR')->setStoredAsCents(false),
             SlugField::new('slug', 'Slug')->setTargetFieldName('name')->hideOnIndex(),
+            TextField::new('file', 'Fichier PDF')->setFormType(VichFileType::class)->onlyOnForms(),
+            TextField::new('fileName', 'Fichier PDF')->formatValue(function ($value, $entity)
+                {
+                    return $value 
+                        ? sprintf('<a href="/pdf/%s" target="_blank">%s</a>', $value, $value)
+                        : 'Aucun fichier';
+                })
+                ->onlyOnIndex(),
             TextField::new('imageFile', 'Image')->setFormType(VichFileType::class)->onlyOnForms(),
             ImageField::new('imageName', 'Couverture')->setBasePath('images/products')->onlyOnIndex(),
         ];
