@@ -41,7 +41,7 @@ class ProductCrudController extends AbstractCrudController
                 })
                 ->onlyOnIndex(),
             TextField::new('imageFile', 'Image')->setFormType(VichFileType::class)->onlyOnForms(),
-            ImageField::new('imageName', 'Couverture')->setBasePath('images/products')->onlyOnIndex(),
+            ImageField::new('imageName', 'Couverture')->setBasePath('assets/images/products')->onlyOnIndex(),
         ];
     }
 }
