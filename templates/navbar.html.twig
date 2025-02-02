@@ -23,10 +23,18 @@
 							<a href="{{ path('app_profil') }}" class="block py-2 px-3 rounded {{ app.request.get('_route') == 'app_profil' ? 'text-white bg-blue-700 md:bg-transparent md:text-blue-700 dark:text-blue-500' : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500' }}">Mon compte</a>
 						</li>
 						<li>
+						<a href="{{ path('app_panier') }}" class="block py-2 px-3 rounded {{ app.request.get('_route') == 'app_panier' ? 'text-white bg-blue-700 md:bg-transparent md:text-blue-700 dark:text-blue-500' : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500' }}">Mon panier</a>
+						</li>
+						<li>
 							<a href="{{ path('admin') }}" class="block py-2 px-3 rounded {{ app.request.get('_route') == 'admin' ? 'text-white bg-blue-700 md:bg-transparent md:text-blue-700 dark:text-blue-500' : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500' }}">Admin</a>
 						</li>
 					{% else %}
-						<a href="{{ path('app_profil') }}" class="block py-2 px-3 rounded {{ app.request.get('_route') == 'app_profile' ? 'text-white bg-blue-700 md:bg-transparent md:text-blue-700 dark:text-blue-500' : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500' }}">Mon compte</a>
+						<li>
+							<a href="{{ path('app_profil') }}" class="block py-2 px-3 rounded {{ app.request.get('_route') == 'app_profile' ? 'text-white bg-blue-700 md:bg-transparent md:text-blue-700 dark:text-blue-500' : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500' }}">Mon compte</a>
+						</li>
+						<li>
+							<a href="{{ path('app_panier') }}" class="block py-2 px-3 rounded {{ app.request.get('_route') == 'app_panier' ? 'text-white bg-blue-700 md:bg-transparent md:text-blue-700 dark:text-blue-500' : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500' }}">Mon panier</a>
+						</li>
 					{% endif %}
 				{% else %}
 					<li>

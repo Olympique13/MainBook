@@ -3,7 +3,7 @@
 {% block title %}
 	{{ parent() }}
 	-
-	{{produit.name}}
+	{{product.name}}
 {% endblock %}
 
 {% block body %}
@@ -12,26 +12,29 @@
 		<div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
 			<div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
 				<div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
-					<img class="w-full rounded-lg" src="{{asset ('build/images/products/' ~ product.imageName)}}" alt="{{product.name}}"/>
+					<img class="w-full rounded-lg" src="{{ asset('images/products/' ~ product.imageName)}}" alt="{{product.name}}"/>
 				</div>
 
 				<div class="mt-6 sm:mt-8 lg:mt-0">
 					<h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
-						{{produit.name}}
+						{{product.name}}
 					</h1>
 					<div class="mt-4 sm:items-center sm:gap-4 sm:flex">
 						<p class="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">
-							{{produit.price|number_format(2, ',')}}€
+							{{product.price|number_format(2, ',')}}€
 						</p>
 					</div>
 
 					<div class="mt-6 sm:gap-4 sm:items-center sm:flex sm:mt-8">
-						<a href="#" title="" class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-white focus:outline-none bg-blue-600 rounded-lg border border-blue-700 hover:bg-blue-800 hover:text-white focus:z-10 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 dark:bg-blue-600 dark:text-white dark:border-blue-700 dark:hover:text-white dark:hover:bg-blue-500" role="button">
+						{{ form_start(addToCartForm, {'attr': {'class': 'mb-0'}}) }}
+						{{ form_widget(addToCartForm.quantity, {'attr': {'class': 'hidden'}}) }}
+						<button type="submit" class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-white focus:outline-none bg-blue-600 rounded-lg border border-blue-700 hover:bg-blue-800 hover:text-white focus:z-10 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 dark:bg-blue-600 dark:text-white dark:border-blue-700 dark:hover:text-white dark:hover:bg-blue-500" role="button">
 							<svg class="-ms-2 me-2 h-5 w-5 mx-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewbox="0 0 24 24">
 								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7h-1M8 7h-.688M13 5v4m-2-2h4"></path>
 							</svg>
 							Ajouter au panier
-						</a>
+							</button>
+						{{ form_end(addToCartForm) }}
 
 						<a href="{{path('app_product')}}" title="" class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-300 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" role="button">
 							<svg class="w-5 h-5 text-black mx-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 14 10">
@@ -45,11 +48,11 @@
 					<hr class="my-6 md:my-8 border-gray-200 dark:border-gray-800"/>
 
 					<p class="mb-6 text-gray-500 dark:text-gray-400">
-						{{produit.catchPhrase}}
+						{{product.catchPhrase}}
 					</p>
 
 					<div class="text-gray-500 dark:text-gray-400">
-						{{produit.description|raw}}
+						{{product.description|raw}}
 					</div>
 				</div>
 			</div>
