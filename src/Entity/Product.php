@@ -64,6 +64,9 @@ class Product
     #[Gedmo\Timestampable(on: 'update')]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    #[ORM\Column]
+    private ?int $stock = null;
+
 
     public function getId(): ?int
     {
@@ -224,5 +227,22 @@ class Product
         $this->updatedAt = new \DateTimeImmutable();
 
         return $this;
+    }
+
+    public function getStock(): ?int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(int $stock): static
+    {
+        $this->stock = $stock;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }
