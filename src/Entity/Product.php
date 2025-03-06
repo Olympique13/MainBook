@@ -241,6 +241,11 @@ class Product
         return $this;
     }
 
+    public function getPdfUrl(): ?string
+    {
+        return $this->fileName ? '/build/pdf/' . $this->fileName : null;
+    }
+
     public function __toString(): string
     {
         return $this->name;
