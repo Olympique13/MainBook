@@ -30,7 +30,6 @@ class ProductCrudController extends AbstractCrudController
             TextField::new('name', 'Titre du produit'),
             TextField::new('catchPhrase', 'Phrase d\'accroche'),
             TextEditorField::new('description', 'Description'),
-            MoneyField::new('price', 'Prix (€)')->setCurrency('EUR')->setStoredAsCents(false),
             SlugField::new('slug', 'Slug')->setTargetFieldName('name')->hideOnIndex(),
             TextField::new('file', 'Fichier PDF')->setFormType(VichFileType::class)->onlyOnForms(),
             TextField::new('fileName', 'Fichier PDF')->formatValue(function ($value, $entity)
@@ -42,7 +41,6 @@ class ProductCrudController extends AbstractCrudController
                 ->onlyOnIndex(),
             TextField::new('imageFile', 'Image')->setFormType(VichFileType::class)->onlyOnForms(),
             ImageField::new('imageName', 'Couverture')->setBasePath('/images/products/')->onlyOnIndex(),
-            IntegerField::new('stock', 'Stock restant'),
         ];
     }
 }

@@ -16,12 +16,12 @@
 		{% endblock %}
 
 	</head>
-	<body class="font-sans text-gray-800 bg-gray-100 overflow-x-hidden" id="body">
+	<body class="font-sans text-gray-800 bg-gray-100 overflow-x-hidden flex flex-col min-h-screen" id="body">
 		{# Navbar #}
 		{% include 'navbar.html.twig' %}
 
 		{# Main content #}
-		<div class="main-content p-8 w-11/12 mx-auto my-8 bg-white border border-gray-200 rounded-lg shadow-lg">
+		<div class="main-content p-8 w-11/12 mx-auto my-8 bg-white border border-gray-200 rounded-lg shadow-lg flex-grow">
 			{% block body %}{% endblock %}
 		</div>
 

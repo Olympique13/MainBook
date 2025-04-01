@@ -17,16 +17,17 @@ class PanierController extends AbstractController
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
     public function index(CartItemRepository $cartItemRepository): Response
     {
-        $user = $this->getUser();
-        $cartItems = $cartItemRepository->findBy(['user' => $user]);
-        $total = array_reduce($cartItems, function ($sum, $item) {
-            return $sum + ($item->getProduct()->getPrice() * $item->getQuantity());
-        }, 0);
+        // $user = $this->getUser();
+        // $cartItems = $cartItemRepository->findBy(['user' => $user]);
+        // $total = array_reduce($cartItems, function ($sum, $item) {
+        //     return $sum + ($item->getProduct()->getPrice() * $item->getQuantity());
+        // }, 0);
 
-        return $this->render('panier/monPanier.html.twig', [
-            'cart' => $cartItems,
-            'total' => $total,
-        ]);
+        // return $this->render('panier/monPanier.html.twig', [
+        //     'cart' => $cartItems,
+        //     'total' => $total,
+        // ]);
+        return $this->redirectToRoute('app_accueil');
     }
 
     #[Route('/mon-panier/remove/{id}', name: 'remove_from_cart', methods: ['POST'])]

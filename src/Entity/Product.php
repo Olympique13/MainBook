@@ -27,9 +27,6 @@ class Product
 
     #[ORM\Column(length: 100)]
     private ?string $catchPhrase = null;
-
-    #[ORM\Column(type: 'float')]
-    private ?float $price = null;
     
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
@@ -63,9 +60,6 @@ class Product
     #[ORM\Column]
     #[Gedmo\Timestampable(on: 'update')]
     private ?\DateTimeImmutable $updatedAt = null;
-
-    #[ORM\Column]
-    private ?int $stock = null;
 
 
     public function getId(): ?int
@@ -105,18 +99,6 @@ class Product
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getPrice(): ?float
-    {
-        return $this->price;
-    }
-
-    public function setPrice(float $price): static
-    {
-        $this->price = $price;
 
         return $this;
     }
@@ -225,18 +207,6 @@ class Product
     public function setUpdatedAt(): static
     {
         $this->updatedAt = new \DateTimeImmutable();
-
-        return $this;
-    }
-
-    public function getStock(): ?int
-    {
-        return $this->stock;
-    }
-
-    public function setStock(int $stock): static
-    {
-        $this->stock = $stock;
 
         return $this;
     }
