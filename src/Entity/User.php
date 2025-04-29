@@ -41,12 +41,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: CartItem::class, orphanRemoval: true)]
-    private Collection $cartItems;
+    /**
+     * @var Collection<int, Avis>
+     */
+    #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'user ')]
+    private Collection $avis;
 
     public function __construct()
     {
-        $this->cartItems = new ArrayCollection();
+        $this->avis = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -153,32 +156,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, CartItem>
+     * @return Collection<int, Avis>
      */
-    public function getCartItems(): Collection
+    public function getAvis(): Collection
     {
-        return $this->cartItems;
+        return $this->avis;
     }
 
-    public function addCartItem(CartItem $cartItem): static
+    public function addAvi(Avis $avi): static
     {
-        if (!$this->cartItems->contains($cartItem)) {
-            $this->cartItems->add($cartItem);
-            $cartItem->setUser($this);
+        if (!$this->avis->contains($avi)) {
+            $this->avis->add($avi);
+            $avi->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeCartItem(CartItem $cartItem): static
+    public function removeAvi(Avis $avi): static
     {
-        if ($this->cartItems->removeElement($cartItem)) {
+        if ($this->avis->removeElement($avi)) {
             // set the owning side to null (unless already changed)
-            if ($cartItem->getUser() === $this) {
-                $cartItem->setUser(null);
+            if ($avi->getUser() === $this) {
+                $avi->setUser(null);
             }
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        $nom = $this->lastName . ' ' . $this->firstName;
+        return $nom ?? 'Utilisateur';
     }
 }

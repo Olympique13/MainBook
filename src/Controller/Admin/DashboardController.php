@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Entity\Article;
+use App\Entity\Autor;
+use App\Entity\Avis;
 use App\Entity\Category;
 use App\Entity\Fournisseur;
 use App\Entity\Product;
@@ -41,6 +43,12 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Articles');
         yield MenuItem::linkToCrud('Produits', 'fas fa-newspaper', Product::class);
         yield MenuItem::linkToCrud('Catégorie', 'fas fa-layer-group', Category::class);
+
+        yield MenuItem::section('Auteur');
+        yield MenuItem::linkToCrud('Auteur', 'fas fa-user-nurse', Autor::class);
+
+        yield MenuItem::section('Avis');
+        yield MenuItem::linkToCrud('Avis', 'fas fa-quote-right', Avis::class);
 
         yield MenuItem::section('Clients');
         yield MenuItem::linkToCrud('Utilisateur', 'fas fa-user', User::class);

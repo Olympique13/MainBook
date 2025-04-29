@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
@@ -27,10 +28,12 @@ class ProductCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             AssociationField::new('category', 'Catégorie'),
+            AssociationField::new('autor', 'Auteur'),
+            BooleanField::new('allowed', 'Autorisation d\'auteur')->setRequired(true),
             TextField::new('name', 'Titre du produit'),
+            SlugField::new('slug', 'Slug')->setTargetFieldName('name')->hideOnIndex(),
             TextField::new('catchPhrase', 'Phrase d\'accroche'),
             TextEditorField::new('description', 'Description'),
-            SlugField::new('slug', 'Slug')->setTargetFieldName('name')->hideOnIndex(),
             TextField::new('file', 'Fichier PDF')->setFormType(VichFileType::class)->onlyOnForms(),
             TextField::new('fileName', 'Fichier PDF')->formatValue(function ($value, $entity)
                 {
@@ -40,7 +43,7 @@ class ProductCrudController extends AbstractCrudController
                 })
                 ->onlyOnIndex(),
             TextField::new('imageFile', 'Image')->setFormType(VichFileType::class)->onlyOnForms(),
-            ImageField::new('imageName', 'Couverture')->setBasePath('/images/products/')->onlyOnIndex(),
+            ImageField::new('imageName', 'Couverture')->setBasePath('/images/products/')->onlyOnIndex()->setRequired(false),
         ];
     }
 }

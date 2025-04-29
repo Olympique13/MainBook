@@ -18,7 +18,6 @@ class CategoryCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm(),
             TextField::new('name', 'Nom'),
             DateTimeField::new('createdAt', 'Date de création')->setFormat('dd MMMM y à HH:mm')->hideOnForm(),
             DateTimeField::new('updatedAt', 'Dernière modification')->setFormat('dd MMMM y à HH:mm')->hideOnForm()->hideOnIndex(),

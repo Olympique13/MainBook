@@ -43,7 +43,7 @@
 						</svg>
 					Se connecter
 					</a> #}
-					<a href="{{ asset('pdf/' ~ product.fileName) }}" download class="mr-4 flex items-center justify-center py-2.5 px-5 text-sm font-medium text-white focus:outline-none bg-blue-600 rounded-lg border border-blue-700 hover:bg-blue-800 hover:text-white focus:z-10 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 dark:bg-blue-600 dark:text-white dark:border-blue-700 dark:hover:text-white dark:hover:bg-blue-500" role="button">
+					<a {% if app.user %} href="{{ asset('pdf/' ~ product.fileName) }}" download {% else %} href="{{ path('app_login') }}" {% endif %} class="mr-4 flex items-center justify-center py-2.5 px-5 text-sm font-medium text-white focus:outline-none bg-blue-600 rounded-lg border border-blue-700 hover:bg-blue-800 hover:text-white focus:z-10 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 dark:bg-blue-600 dark:text-white dark:border-blue-700 dark:hover:text-white dark:hover:bg-blue-500" role="button">
 						<svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#ffffff">
 							<path d="M12 5v14m0 0-4-4m4 4 4-4" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
 							<path d="M5 19h14" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -59,17 +59,57 @@
 						</a>
 					</div>
 
+					{% if app.user %}
+						{% set userAvis = null %}
+						{% for avis in avis %}
+							{% if avis.user == app.user %}
+								{% set userAvis = avis %}
+							{% endif %}
+						{% endfor %}
+
+						{% if userAvis %}
+							<div>
+								<p class="mt-4 text-gray-500 dark:text-gray-400">
+									Votre avis : {{ userAvis.avis }}
+								</p>
+								<p class="text-gray-500 dark:text-gray-400">
+									Note : {{ userAvis.note }}/5
+								</p>
+							</div>
+						{% else %}
+							<div>
+								<button id="add-avis-btn" class="mt-4 py-2.5 px-5 text-sm font-medium text-white bg-green-600 rounded-lg border border-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:focus:ring-green-800 dark:bg-green-600 dark:border-green-700 dark:hover:bg-green-500">
+									Ajouter un avis
+								</button>
+
+								<div id="avis-form-container" class="hidden mt-4">
+									{{ form_start(avisForm, {'attr': {'class': 'space-y-4'}}) }}
+									{{ form_widget(avisForm.avis, {'attr': {'class': 'w-full p-2 border rounded-lg', 'placeholder': 'Ajouter votre commentaire ici'}}) }}
+									{{ form_widget(avisForm.note, {'attr': {'class': 'w-full p-2 border rounded-lg', 'placeholder': 'Ajouter une note /5'}}) }}
+									<button type="submit" class="py-2.5 px-5 text-sm font-medium text-white bg-blue-600 rounded-lg border border-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 dark:bg-blue-600 dark:border-blue-700 dark:hover:bg-blue-500">
+										Soumettre
+									</button>
+									{{ form_end(avisForm) }}
+								</div>
+							</div>
+						{% endif %}
+					{% endif %}
+
+					<script>
+						document.getElementById('add-avis-btn').addEventListener('click', function () {
+							const formContainer = document.getElementById('avis-form-container');
+							formContainer.classList.toggle('hidden');
+						});
+					</script>
+
 					<hr class="my-6 md:my-8 border-gray-200 dark:border-gray-800"/>
 
 					<p class="mb-6 text-gray-500 dark:text-gray-400">
-					auteur - édition
+					{{autor.name}}
 					</p>
 
-					<p class="mb-6 text-gray-500 dark:text-gray-400">
-						{{product.catchPhrase}}
-					</p>
-
-					<div class="text-gray-500 dark:text-gray-400">
+					{# Synopsis #}
+					<div class="text-gray-800">
 						{{product.description|raw}}
 					</div>
 				</div>

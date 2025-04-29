@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\HttpFoundation\File\File;
@@ -50,7 +52,7 @@ class Product
     #[Assert\File(maxSize: '20M', mimeTypes: ['application/pdf'], mimeTypesMessage:"Seulement les PDF sont acceptés", maxSizeMessage:"Le PDF ne doit pas dépasser les 20M")]
     private ?File $file = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: false)]
     private ?string $fileName = null;
 
     #[ORM\Column]
@@ -60,6 +62,23 @@ class Product
     #[ORM\Column]
     #[Gedmo\Timestampable(on: 'update')]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    /**
+     * @var Collection<int, Avis>
+     */
+    #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'product')]
+    private Collection $avis;
+
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    private ?Autor $autor = null;
+
+    #[ORM\Column(nullable: true, options: ["default" => false])]
+    private ?bool $allowed = false;
+
+    public function __construct()
+    {
+        $this->avis = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -163,8 +182,9 @@ class Product
     {
         $this->file = $file;
         if ($file) {
-        $this->updatedAt = new \DateTimeImmutable();
-    }
+            $this->updatedAt = new \DateTimeImmutable();
+            $this->fileName = $file->getFilename();
+        }
     }
 
     public function getFile(): ?File
@@ -219,5 +239,72 @@ class Product
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection<int, Avis>
+     */
+    public function getAvis(): Collection
+    {
+        return $this->avis;
+    }
+
+    public function addAvi(Avis $avi): static
+    {
+        if (!$this->avis->contains($avi)) {
+            $this->avis->add($avi);
+            $avi->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvi(Avis $avi): static
+    {
+        if ($this->avis->removeElement($avi)) {
+            // set the owning side to null (unless already changed)
+            if ($avi->getProduct() === $this) {
+                $avi->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAutor(): ?Autor
+    {
+        return $this->autor;
+    }
+
+    public function setAutor(?Autor $autor): static
+    {
+        $this->autor = $autor;
+
+        return $this;
+    }
+
+    public function isAllowed(): ?bool
+    {
+        return $this->allowed;
+    }
+
+    public function setAllowed(bool $allowed): static
+    {
+        $this->allowed = $allowed;
+
+        return $this;
+    }
+
+    public function getAverageRating(): float
+    {
+        if ($this->avis->isEmpty()) {
+            return 0;
+        }
+
+        $total = array_reduce($this->avis->toArray(), function ($sum, $avi) {
+            return $sum + $avi->getNote();
+        }, 0);
+
+        return round($total / $this->avis->count(), 1);
     }
 }

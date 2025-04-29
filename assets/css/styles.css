@@ -1,0 +1,11 @@
+html, body {
+	/* ...existing code... */
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+main {
+	/* ...existing code... */
+	flex: 1;
+}

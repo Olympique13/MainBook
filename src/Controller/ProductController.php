@@ -2,15 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Autor;
+use App\Form\AvisType;
 use App\Form\FiltreProductType;
 use App\Repository\ProductRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Entity\CartItem;
-use App\Form\AddToCartType;
-use Doctrine\ORM\EntityManagerInterface;
 
 class ProductController extends AbstractController
 {
@@ -42,22 +42,29 @@ class ProductController extends AbstractController
     public function slugProduct(string $slug, ProductRepository $productRepository, Request $request, EntityManagerInterface $em): Response
     {
         $product = $productRepository->findOneBy(['slug' => $slug]);
-        $cartItem = new CartItem();
-        $cartItem->setProduct($product);
-        $cartItem->setUser($this->getUser());
-        $addToCartForm = $this->createForm(AddToCartType::class, $cartItem);
-        $addToCartForm->handleRequest($request);
+        $autor = $product->getAutor();
 
-        if ($addToCartForm->isSubmitted() && $addToCartForm->isValid()) {
-            $em->persist($cartItem);
+        $avis = $product->getAvis();
+
+        $avisForm = $this->createForm(AvisType::class);
+        $avisForm->handleRequest($request);
+
+        if ($avisForm->isSubmitted() && $avisForm->isValid()) {
+            $avis = $avisForm->getData();
+            $avis->setProduct($product);
+            $avis->setUser($this->getUser());
+
+            $em->persist($avis);
             $em->flush();
 
-            return $this->redirectToRoute('app_panier');
+            return $this->redirectToRoute('product_detail', ['slug' => $slug]);
         }
 
         return $this->render('product/productDetail.html.twig', [
             'product' => $product,
-            'addToCartForm' => $addToCartForm->createView(),
+            'autor' => $autor,
+            'avisForm' => $avisForm->createView(),
+            'avis' => $avis,
         ]);
     }
 }

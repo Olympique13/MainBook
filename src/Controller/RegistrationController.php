@@ -39,7 +39,7 @@ class RegistrationController extends AbstractController
                     'userEmail' => $user->getEmail(),
                 ]);
 
-            $mailer->send($email);
+            // $mailer->send($email);
 
             return $this->redirect('/login',303);
         }
