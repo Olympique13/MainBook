@@ -6,41 +6,60 @@
 
 {% block body %}
 
-	<div class="bg-gray-50">
-		<div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-			{# <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 text-center">Les derniers livres notés</h2> #}
-			<div class="mb-16 flex flex-row justify-between items-center">
-				<h2 class="text-2xl sm:text-3xl font-extrabold text-gray-800 mb-6 sm:mb-10">Liste de livres</h2>
-				{{ form_start(form, {'attr': {'id': 'formSearch', 'class': 'flex items-center'}}) }}
-				<div class="mb-4 mx-6">
-					{{ form_row(form.category, {'attr': {'class': 'block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm'}}) }}
-				</div>
-				<button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md shadow-sm">Filtrer</button>
-				{{ form_end(form) }}
-			</div>
+<div class="bg-gray-100 min-h-screen py-16">
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+	
+		<div class="mb-16 text-center">
+			<h1 class="text-4xl font-bold text-gray-800 mb-4">Bienvenue sur notre site</h1>
+			<p class="text-lg text-gray-600 max-w-3xl mx-auto">
+				Découvrez une sélection de livres soigneusement choisis. Vous pouvez laisser vos avis, consulter ceux des autres utilisateurs et voir la note moyenne attribuée à chaque œuvre.
+			</p>
+		</div>
 
-			<section id="productList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-8 mt-12">
-				{% for product in produits[:3] %}
-					<div class="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105">
-						<a href="{{ path('product_detail', {'slug': product.slug}) }}">
-							<img src="{{ asset('images/products/' ~ product.imageName) }}" alt="{{ product.name }}" class="h-64 w-full object-cover">
-							<div class="p-6">
-								<span class="text-sm text-gray-500 uppercase">{{ product.category }}</span>
-								<h3 class="mt-2 text-lg font-semibold text-gray-800 truncate">{{ product.name }}</h3>
-								<p class="mt-3 text-sm text-gray-600 line-clamp-3">{{ product.catchPhrase }}</p>
-								<p class="mt-4 text-yellow-500 text-sm font-medium">
+		<div class="mb-12 flex flex-col sm:flex-row justify-between items-center gap-4">
+			<h2 class="text-3xl font-semibold text-gray-800">Les mieux notés</h2>
+
+			{{ form_start(form, {'attr': {'id': 'formSearch', 'class': 'flex flex-col sm:flex-row items-center gap-4'}}) }}
+				{{ form_row(form.category, {
+					'attr': {
+						'class': 'block w-64 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm'
+					}
+				}) }}
+				<button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md shadow">
+					Filtrer
+				</button>
+			{{ form_end(form) }}
+		</div>
+
+		<section id="productList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+			{% for product in produits[:3]|sort((a, b) => b.getAverageRating() <=> a.getAverageRating()) %}
+				<div class="bg-white rounded-2xl shadow-lg overflow-hidden transition transform hover:scale-[1.02] hover:shadow-xl">
+					<a href="{{ path('product_detail', {'slug': product.slug}) }}" class="block">
+						<img src="{{ asset('images/products/' ~ product.imageName) }}" alt="{{ product.name }}"
+							class="h-64 w-full object-cover">
+						<div class="p-5 relative">
+							<span class="text-xs uppercase tracking-wide text-gray-500">{{ product.category }}</span>
+
+							<h3 class="mt-2 text-lg font-bold text-gray-900 truncate">{{ product.name }}</h3>
+
+							<p class="mt-2 text-sm text-gray-600 line-clamp-3">{{ product.catchPhrase }}</p>
+
+							<div class="mt-4 flex items-center justify-between">
+								<p class="text-sm text-gray-700">
 									{% if product.getAverageRating() == 0 %}
-										Non noté
+										<span class="text-yellow-600 font-semibold">Non noté</span>
 									{% else %}
-										Note moyenne : {{ product.getAverageRating() }} / 5
+										<span class="text-yellow-600 font-semibold">Note moyenne : {{ product.getAverageRating() }} / 5</span>
 									{% endif %}
 								</p>
 							</div>
-						</a>
-					</div>
-				{% endfor %}
-			</section>
-		</div>
+						</div>
+					</a>
+				</div>
+			{% endfor %}
+		</section>
 	</div>
+</div>
+
 
 {% endblock %}

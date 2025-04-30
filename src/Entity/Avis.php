@@ -15,6 +15,7 @@ class Avis
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min:5, minMessage: "Votre avis doit comporter au minimum {{ limit }} caractères")]
     private ?string $avis = null;
 
     #[ORM\ManyToOne(inversedBy: 'avis')]
@@ -25,7 +26,7 @@ class Avis
     private ?Product $product = null;
 
     #[ORM\Column]
-    #[Assert\Range(min: 1, max: 5, notInRangeMessage: 'Votre note d\'avis doit être entre {{ min }} et {{ max }}',)]
+    #[Assert\Range(min: 1, max: 5, notInRangeMessage: 'Votre note d\'avis doit être entre {{ min }} et {{ max }}')]
     private ?int $note = null;
 
     public function getId(): ?int

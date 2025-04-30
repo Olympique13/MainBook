@@ -1,121 +1,93 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{ parent() }}
-	-
-	{{product.name}}
+	{{ parent() }} - {{product.name}}
 {% endblock %}
 
 {% block body %}
 
-	<section class="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
-		<div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
-			<div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
-				<div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
-					<img class="w-full rounded-lg" src="{{ asset('images/products/' ~ product.imageName)}}" alt="{{product.name}}"/>
+	<section class="bg-gray-50 dark:bg-gray-900 py-12">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+				<div class="w-full h-full">
+					<img src="{{ asset('images/products/' ~ product.imageName) }}"
+						alt="{{ product.name }}"
+						class="rounded-2xl shadow-xl object-cover w-full h-full max-h-[600px] transition duration-300 hover:scale-105"/>
 				</div>
 
-				<div class="mt-6 sm:mt-8 lg:mt-0">
-					<h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
-						{{product.name}}
-					</h1>
-					{# <div class="mt-4 sm:items-center sm:gap-4 sm:flex">
-						<p class="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">
-							{{product.price|number_format(2, ',')}}€
-						</p>
-					</div> #}
-
-					<div class="mt-6 sm:gap-4 sm:items-center sm:flex sm:mt-8">
-					{# {{ form_start(addToCartForm, {'attr': {'class': 'mb-0 flex'}}) }}
-					{{ form_widget(addToCartForm.quantity, {'attr': {'class': 'hidden'}}) }}
-					{% if app.user %}
-						<button type="submit" class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-white focus:outline-none bg-blue-600 rounded-lg border border-blue-700 hover:bg-blue-800 hover:text-white focus:z-10 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 dark:bg-blue-600 dark:text-white dark:border-blue-700 dark:hover:text-white dark:hover:bg-blue-500" role="button">
-							<svg class="-ms-2 me-2 h-5 w-5 mx-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewbox="0 0 24 24">
-								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7h-1M8 7h-.688M13 5v4m-2-2h4"></path>
-							</svg>
-							Ajouter au panier
-						</button>
-						{{ form_end(addToCartForm) }}
-					{% else %} #}
-					{# <a href="{{ path('app_login') }}" class="mr-4 flex items-center justify-center py-2.5 px-5 text-sm font-medium text-white focus:outline-none bg-blue-600 rounded-lg border border-blue-700 hover:bg-blue-800 hover:text-white focus:z-10 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 dark:bg-blue-600 dark:text-white dark:border-blue-700 dark:hover:text-white dark:hover:bg-blue-500" role="button">
-						<svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#ffffff">
-							<path d="M19 12H12M12 12L15 15M12 12L15 9" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M19 6V5C19 3.89543 18.1046 3 17 3H7C5.89543 3 5 3.89543 5 5V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V18" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-						</svg>
-					Se connecter
-					</a> #}
-					<a {% if app.user %} href="{{ asset('pdf/' ~ product.fileName) }}" download {% else %} href="{{ path('app_login') }}" {% endif %} class="mr-4 flex items-center justify-center py-2.5 px-5 text-sm font-medium text-white focus:outline-none bg-blue-600 rounded-lg border border-blue-700 hover:bg-blue-800 hover:text-white focus:z-10 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 dark:bg-blue-600 dark:text-white dark:border-blue-700 dark:hover:text-white dark:hover:bg-blue-500" role="button">
-						<svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#ffffff">
-							<path d="M12 5v14m0 0-4-4m4 4 4-4" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-							<path d="M5 19h14" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-						</svg>
-						Télécharger
-					</a>
-					{# {% endif %} #}
-						<a href="{{path('app_product')}}" class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-300 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" role="button">
-							<svg class="w-5 h-5 text-black mx-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 14 10">
-								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"></path>
-							</svg>
-							Retourner à nos produits
-						</a>
+				<div class="flex flex-col justify-between">
+					<div>
+						<h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">{{ product.name }}</h1>
+						<p class="text-gray-600 dark:text-gray-300 mb-4">{{ autor.name }}</p>
+						<div class="text-gray-800 dark:text-gray-100 text-lg leading-relaxed">
+							{{ product.description|raw }}
+						</div>
 					</div>
 
-					{% if app.user %}
-						{% set userAvis = null %}
-						{% for avis in avis %}
-							{% if avis.user == app.user %}
-								{% set userAvis = avis %}
-							{% endif %}
-						{% endfor %}
+					<div class="mt-8 flex flex-wrap gap-4">
+						<a href="{{ path('app_accueil') }}"
+						class="inline-flex items-center px-5 py-3 text-sm font-medium text-gray-800 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-700">
+							<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+							</svg>
+							Retour aux produits
+						</a>
 
-						{% if userAvis %}
-							<div>
-								<p class="mt-4 text-gray-500 dark:text-gray-400">
-									Votre avis : {{ userAvis.avis }}
-								</p>
-								<p class="text-gray-500 dark:text-gray-400">
-									Note : {{ userAvis.note }}/5
-								</p>
-							</div>
-						{% else %}
-							<div>
-								<button id="add-avis-btn" class="mt-4 py-2.5 px-5 text-sm font-medium text-white bg-green-600 rounded-lg border border-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:focus:ring-green-800 dark:bg-green-600 dark:border-green-700 dark:hover:bg-green-500">
+						{% if app.user %}
+							{% set userAvis = null %}
+							{% for avis in avis %}
+								{% if avis.user == app.user %}
+									{% set userAvis = avis %}
+								{% endif %}
+							{% endfor %}
+
+							{% if not userAvis %}
+								<button id="add-avis-btn"
+										class="inline-flex items-center px-5 py-3 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700">
 									Ajouter un avis
 								</button>
-
-								<div id="avis-form-container" class="hidden mt-4">
-									{{ form_start(avisForm, {'attr': {'class': 'space-y-4'}}) }}
-									{{ form_widget(avisForm.avis, {'attr': {'class': 'w-full p-2 border rounded-lg', 'placeholder': 'Ajouter votre commentaire ici'}}) }}
-									{{ form_widget(avisForm.note, {'attr': {'class': 'w-full p-2 border rounded-lg', 'placeholder': 'Ajouter une note /5'}}) }}
-									<button type="submit" class="py-2.5 px-5 text-sm font-medium text-white bg-blue-600 rounded-lg border border-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 dark:bg-blue-600 dark:border-blue-700 dark:hover:bg-blue-500">
-										Soumettre
-									</button>
-									{{ form_end(avisForm) }}
-								</div>
-							</div>
+							{% endif %}
 						{% endif %}
-					{% endif %}
+					</div>
 
-					<script>
-						document.getElementById('add-avis-btn').addEventListener('click', function () {
-							const formContainer = document.getElementById('avis-form-container');
-							formContainer.classList.toggle('hidden');
-						});
-					</script>
-
-					<hr class="my-6 md:my-8 border-gray-200 dark:border-gray-800"/>
-
-					<p class="mb-6 text-gray-500 dark:text-gray-400">
-					{{autor.name}}
-					</p>
-
-					{# Synopsis #}
-					<div class="text-gray-800">
-						{{product.description|raw}}
+					<div id="avis-form-container" class="hidden mt-6 bg-gray-100 dark:bg-gray-800 p-6 rounded-lg">
+						{{ form_start(avisForm, {'attr': {'class': 'space-y-4'}}) }}
+							{{ form_widget(avisForm.avis, {'attr': {'class': 'w-full rounded-md p-3 text-gray-900 dark:text-white bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700'}}) }}
+							{{ form_widget(avisForm.note, {'attr': {'class': 'w-full rounded-md p-3 text-gray-900 dark:text-white bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700'}}) }}
+							<button type="submit"
+									class="w-full py-3 px-6 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 transition">
+								Soumettre
+							</button>
+						{{ form_end(avisForm) }}
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
+
+	<section class="bg-white dark:bg-gray-900 py-12 px-4 sm:px-8 lg:px-16">
+		<h2 class="text-2xl font-bold text-center text-gray-900 dark:text-white mb-10">Avis des utilisateurs</h2>
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+			{% for avis in avis %}
+				<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md {% if avis.user == app.user %}border-2 border-blue-500{% endif %}">
+					<div class="flex justify-between items-center mb-3">
+						<span class="text-gray-800 dark:text-white font-medium">{{ avis.user.firstName }} {{ avis.user.lastName|slice(0,1) }}.</span>
+						<span class="text-yellow-500 font-semibold">{{ avis.note }} / 5</span>
+					</div>
+					<p class="text-gray-600 dark:text-gray-300 text-sm">{{ avis.avis }}</p>
+				</div>
+			{% else %}
+				<p class="text-center text-gray-500 dark:text-gray-400 col-span-full">Aucun avis pour ce produit pour le moment.</p>
+			{% endfor %}
+		</div>
+	</section>
+
+	<script>
+	document.getElementById('add-avis-btn')?.addEventListener('click', function () {
+		document.getElementById('avis-form-container').classList.toggle('hidden');
+	});
+	</script>
+
 
 
 {% endblock %}
