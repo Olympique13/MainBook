@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Accueil
+{% endblock %}
+
+{% block body %}
+
+    {% for emojis in emoji %}
+        <div class="bg-white p-4 rounded-lg shadow hover:shadow-md transition">
+            <div class="text-3xl text-center mb-2">
+                {{ emojis.htmlCode[0]|raw }}
+            </div>
+            <p class="text-sm text-gray-700 text-center">
+                {{ emojis.name|capitalize }}
+            </p>
+        </div>
+    {% endfor %}
+
+        {# emoji.name = >3 : red-heart | =3 : Thinking face | <3 : thumbs down  | smiley and people#}
+
+{% endblock %}

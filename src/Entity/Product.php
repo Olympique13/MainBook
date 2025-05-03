@@ -209,6 +209,7 @@ class Product
         return $this->createdAt;
     }
 
+    // Trigger
     #[ORM\PrePersist]
     public function setCreatedAt(): static
     {
@@ -223,6 +224,7 @@ class Product
         return $this->updatedAt;
     }
 
+    // Trigger
     #[ORM\PreUpdate]
     public function setUpdatedAt(): static
     {
@@ -307,4 +309,5 @@ class Product
 
         return round($total / $this->avis->count(), 1);
     }
+    
 }
