@@ -8,11 +8,12 @@
 	<!-- Profile Card -->
 	<div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md text-center">
 		<div class="flex justify-center">
-<img class="object-cover border-4 border-indigo-600 rounded-full shadow-lg h-32 w-32" src={% if app.user.getRoles() != 'ROLE_ADMIN' %}"https://img.freepik.com/vecteurs-libre/cercle-bleu-utilisateur-blanc_78370-4707.jpg?semt=ais_hybrid&w=740" {% else %} "https://t4.ftcdn.net/jpg/02/27/45/09/360_F_227450952_KQCMShHPOPebUXklULsKsROk5AvN6H1H.jpg" {% endif %} alt="Photo de profil">
+			<img class="object-cover border-4 border-indigo-600 rounded-full shadow-lg h-32 w-32" src={% if app.user.getRoles() != 'ROLE_ADMIN' %}"https://img.freepik.com/vecteurs-libre/cercle-bleu-utilisateur-blanc_78370-4707.jpg?semt=ais_hybrid&w=740" {% else %} "https://t4.ftcdn.net/jpg/02/27/45/09/360_F_227450952_KQCMShHPOPebUXklULsKsROk5AvN6H1H.jpg" {% endif %} alt="Photo de profil">
 		</div>
 		<h1 class="text-2xl font-bold text-gray-800 mt-4">
 			{{ app.user.firstName }} {{ app.user.lastName }}
 		</h1>
+		{{ app.user.email}}
 		<h2 class="text-sm text-gray-500">
 			{% if 'ROLE_ADMIN' in app.user.getRoles() %}
 				Administrateur
@@ -27,6 +28,11 @@
 		<a href="{{ path('app_logout') }}" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
 			Déconnexion
 		</a>
+		{% if 'ROLE_ADMIN' in app.user.roles %}
+		<a href="{{ path('admin') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+			Administration
+		</a>
+		{% endif %}
 	</div>
 </div>
 {% endblock %}

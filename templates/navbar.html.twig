@@ -15,11 +15,11 @@
 					<a href="{{ path('app_profil') }}" class="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 {{ app.request.get('_route') == 'app_profil' ? 'font-semibold text-blue-600 dark:text-blue-400' : '' }}">
 						Mon compte
 					</a>
-					{% if 'ROLE_ADMIN' in app.user.roles %}
+					{# {% if 'ROLE_ADMIN' in app.user.roles %}
 						<a href="{{ path('admin') }}" class="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 {{ app.request.get('_route') == 'admin' ? 'font-semibold text-blue-600 dark:text-blue-400' : '' }}">
 							Admin
 						</a>
-					{% endif %}
+					{% endif %} #}
 				{% else %}
 					<a href="{{ path('app_login') }}" class="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 {{ app.request.get('_route') == 'app_login' ? 'font-semibold text-blue-600 dark:text-blue-400' : '' }}">
 						Connexion
