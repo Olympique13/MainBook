@@ -39,7 +39,7 @@ class Product
     private ?string $slug = null;
 
     #[Vich\UploadableField(mapping: 'products', fileNameProperty: 'imageName', size: 'imageSize')]
-    #[Assert\File(maxSize: '20M', mimeTypes: ['image/pdf', 'image/png', 'image/gif'])]
+    #[Assert\File(maxSize: '20M', mimeTypes: ['image/pdf', 'image/png', 'image/gif', 'image/jpg', 'image/jpeg', 'image/webp'])]
     private ?File $imageFile = null;
 
     #[ORM\Column(length: 255)]
@@ -47,13 +47,6 @@ class Product
 
     #[ORM\Column]
     private ?int $imageSize = null;
-
-    #[Vich\UploadableField(mapping: 'pdf', fileNameProperty: 'fileName')]
-    #[Assert\File(maxSize: '20M', mimeTypes: ['application/pdf'], mimeTypesMessage:"Seulement les PDF sont acceptés", maxSizeMessage:"Le PDF ne doit pas dépasser les 20M")]
-    private ?File $file = null;
-
-    #[ORM\Column(length: 255, nullable: false)]
-    private ?string $fileName = null;
 
     #[ORM\Column]
     #[Gedmo\Timestampable(on: 'create')]
@@ -71,9 +64,6 @@ class Product
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     private ?Autor $autor = null;
-
-    #[ORM\Column(nullable: true, options: ["default" => false])]
-    private ?bool $allowed = false;
 
     public function __construct()
     {
@@ -145,9 +135,13 @@ class Product
     }
 
     public function setImageFile(?File $imageFile = null): void
-    {
-        $this->imageFile = $imageFile;
+{
+    $this->imageFile = $imageFile;
+
+    if ($imageFile !== null) {
+        $this->updatedAt = new \DateTimeImmutable();
     }
+}
 
     public function getImageFile(): ?File
     {
@@ -159,7 +153,7 @@ class Product
         return $this->imageName;
     }
 
-    public function setImageName(string $imageName): static
+    public function setImageName(?string $imageName): static
     {
         $this->imageName = $imageName;
 
@@ -171,35 +165,9 @@ class Product
         return $this->imageSize;
     }
 
-    public function setImageSize(int $imageSize): static
+    public function setImageSize(?int $imageSize): static
     {
         $this->imageSize = $imageSize;
-
-        return $this;
-    }
-
-    public function setFile(?File $file = null): void
-    {
-        $this->file = $file;
-        if ($file) {
-            $this->updatedAt = new \DateTimeImmutable();
-            $this->fileName = $file->getFilename();
-        }
-    }
-
-    public function getFile(): ?File
-    {
-        return $this->file;
-    }
-
-    public function getFileName(): ?string
-    {
-        return $this->fileName;
-    }
-
-    public function setFileName(string $fileName): static
-    {
-        $this->fileName = $fileName;
 
         return $this;
     }
@@ -231,11 +199,6 @@ class Product
         $this->updatedAt = new \DateTimeImmutable();
 
         return $this;
-    }
-
-    public function getPdfUrl(): ?string
-    {
-        return $this->fileName ? '/build/pdf/' . $this->fileName : null;
     }
 
     public function __toString(): string
@@ -281,18 +244,6 @@ class Product
     public function setAutor(?Autor $autor): static
     {
         $this->autor = $autor;
-
-        return $this;
-    }
-
-    public function isAllowed(): ?bool
-    {
-        return $this->allowed;
-    }
-
-    public function setAllowed(bool $allowed): static
-    {
-        $this->allowed = $allowed;
 
         return $this;
     }

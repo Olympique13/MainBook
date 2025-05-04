@@ -26,22 +26,22 @@ class ProductCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm(),
+            // IdField::new('id')->hideOnForm(),
             AssociationField::new('category', 'Catégorie'),
             AssociationField::new('autor', 'Auteur'),
-            BooleanField::new('allowed', 'Autorisation d\'auteur')->setRequired(true),
+            // BooleanField::new('allowed', 'Autorisation d\'auteur')->setRequired(true),
             TextField::new('name', 'Titre du produit'),
             SlugField::new('slug', 'Slug')->setTargetFieldName('name')->hideOnIndex(),
             TextField::new('catchPhrase', 'Phrase d\'accroche'),
             TextEditorField::new('description', 'Description'),
-            TextField::new('file', 'Fichier PDF')->setFormType(VichFileType::class)->onlyOnForms(),
-            TextField::new('fileName', 'Fichier PDF')->formatValue(function ($value, $entity)
-                {
-                    return $value 
-                        ? sprintf('<a href="/pdf/%s" target="_blank">%s</a>', $value, $value)
-                        : 'Aucun fichier';
-                })
-                ->onlyOnIndex(),
+            // TextField::new('file', 'Fichier PDF')->setFormType(VichFileType::class)->onlyOnForms(),
+            // TextField::new('fileName', 'Fichier PDF')->formatValue(function ($value, $entity)
+            //     {
+            //         return $value 
+            //             ? sprintf('<a href="/pdf/%s" target="_blank">%s</a>', $value, $value)
+            //             : 'Aucun fichier';
+            //     })
+            //     ->onlyOnIndex(),
             TextField::new('imageFile', 'Image')->setFormType(VichFileType::class)->onlyOnForms(),
             ImageField::new('imageName', 'Couverture')->setBasePath('/images/products/')->onlyOnIndex()->setRequired(false),
         ];

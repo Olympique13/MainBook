@@ -36,9 +36,9 @@
 				<div class="bg-white rounded-2xl shadow-lg overflow-hidden transition transform hover:scale-[1.02] hover:shadow-xl">
 					<a href="{{ path('product_detail', {'slug': product.slug}) }}" class="block">
 						<img src="{{ asset('images/products/' ~ product.imageName) }}" alt="{{ product.name }}"
-							class="h-64 w-full object-cover">
+							class="h-64 w-full object-contain">
 						<div class="p-5 relative">
-							<span class="text-xs uppercase tracking-wide text-gray-500">{{ product.category }}</span>
+							<span class="text-xs uppercase tracking-wide text-gray-500">{{ product.category }} - {{ product.autor }}</span>
 
 							<h3 class="mt-2 text-lg font-bold text-gray-900 truncate">{{ product.name }}</h3>
 
