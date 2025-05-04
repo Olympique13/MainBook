@@ -30,7 +30,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Administration du blog')
+            ->setTitle('MainBook Administration')
             ->setTextDirection('ltr');
     }
 
@@ -41,10 +41,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Accueil', 'fa fa-home');
 
         yield MenuItem::section('Articles');
-        yield MenuItem::linkToCrud('Produits', 'fas fa-newspaper', Product::class);
+        yield MenuItem::linkToCrud('Livres', 'fas fa-newspaper', Product::class);
         yield MenuItem::linkToCrud('Catégorie', 'fas fa-layer-group', Category::class);
-
-        yield MenuItem::section('Auteur');
         yield MenuItem::linkToCrud('Auteur', 'fas fa-user-nurse', Autor::class);
 
         yield MenuItem::section('Avis');
