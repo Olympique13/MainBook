@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Avis;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class AvisCrudController extends AbstractCrudController
@@ -20,6 +21,7 @@ class AvisCrudController extends AbstractCrudController
             AssociationField::new('user', 'Utilisateur'),
             AssociationField::new('product', 'Produit'),
             TextField::new('avis', 'Avis'),
+            IntegerField::new('note', 'Note'),
         ];
     }
 }

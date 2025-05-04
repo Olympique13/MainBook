@@ -32,7 +32,7 @@
 		</div> #}
 
 		<section id="productList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-			{% for product in produits[:3]|sort((a, b) => b.getAverageRating() <=> a.getAverageRating()) %}
+			{% for product in produits|sort((a, b) => b.getAverageRating() <=> a.getAverageRating()) [:3] %}
 				<div class="bg-white rounded-2xl shadow-lg overflow-hidden transition transform hover:scale-[1.02] hover:shadow-xl">
 					<a href="{{ path('product_detail', {'slug': product.slug}) }}" class="block">
 						<img src="{{ asset('images/products/' ~ product.imageName) }}" alt="{{ product.name }}"

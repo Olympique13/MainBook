@@ -9,7 +9,7 @@
 					Accueil
 				</a>
 				<a href="{{ path('app_product') }}" class="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 {{ app.request.get('_route') in ['app_product', 'product_detail'] ? 'font-semibold text-blue-600 dark:text-blue-400' : '' }}">
-					Nos produits
+					Les livres
 				</a>
 				{% if app.user %}
 					<a href="{{ path('app_profil') }}" class="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 {{ app.request.get('_route') == 'app_profil' ? 'font-semibold text-blue-600 dark:text-blue-400' : '' }}">
