@@ -6,7 +6,7 @@
 
 {% block body %}
 
-<div class="bg-gray-100 min-h-screen py-16">
+<div class="bg-gray-100 py-6 overflow-y-hidden">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 	
 		<div class="mb-16 text-center">
@@ -16,7 +16,7 @@
 			</p>
 		</div>
 
-		<div class="mb-12 flex flex-col sm:flex-row justify-between items-center gap-4">
+		{# <div class="mb-12 flex flex-col sm:flex-row justify-between items-center gap-4">
 			<h2 class="text-3xl font-semibold text-gray-800">Les mieux notés</h2>
 
 			{{ form_start(form, {'attr': {'id': 'formSearch', 'class': 'flex flex-col sm:flex-row items-center gap-4'}}) }}
@@ -29,7 +29,7 @@
 					Filtrer
 				</button>
 			{{ form_end(form) }}
-		</div>
+		</div> #}
 
 		<section id="productList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
 			{% for product in produits[:3]|sort((a, b) => b.getAverageRating() <=> a.getAverageRating()) %}

@@ -10,8 +10,11 @@
 		<div class="mb-16 flex flex-row justify-between items-center">
 			<h2 class="text-2xl sm:text-3xl font-extrabold text-gray-800 mb-6 sm:mb-10">Nos livres numériques</h2>
 			{{ form_start(form, {'attr': {'id': 'formSearch', 'class': 'flex items-center'}}) }}
-			<div class="mb-4 mx-6">
+			<div class="mb-4 mx-2">
 				{{ form_row(form.category, {'attr': {'class': 'block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm'}}) }}
+			</div>
+			<div class="mb-4 mx-2">
+				{{ form_row(form.autor, {'attr': {'class': 'block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm'}}) }}
 			</div>
 			<button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md shadow-sm">Filtrer</button>
 			{{ form_end(form) }}
@@ -19,27 +22,23 @@
 
 		<section id="productList" class="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
 
-			{% for products in produit %}
+			{% if produit is not empty %}
+				{% for products in produit %}
 
-				<div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
-					<a href="{{ path('product_detail', {'slug': products.slug}) }}">
-						<img src="{{ asset('images/products/' ~ products.imageName)}}" alt="{{products.name}}" class="h-80 w-72 object-cover rounded-t-xl"/>
-						<div class="px-4 py-3 w-72">
-							<span class="text-gray-400 mr-3 uppercase text-xs">{{products.category}}</span>
-							<p class="text-lg font-semibold text-black truncate block capitalize">{{products.name}}</p>
-							<div class="flex items-center">
-								<div class="ml-auto">
-									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bag-plus" viewbox="0 0 16 16">
-										<path fill-rule="evenodd" d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z"/>
-										<path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
-									</svg>
-								</div>
+					<div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
+						<a href="{{ path('product_detail', {'slug': products.slug}) }}">
+							<img src="{{ asset('images/products/' ~ products.imageName)}}" alt="{{products.name}}" class="h-80 w-72 object-contain rounded-t-xl"/>
+							<div class="px-4 py-3 w-72">
+								<span class="text-gray-400 mr-3 uppercase text-xs">{{products.category}}</span>
+								<p class="text-lg font-semibold text-black truncate block capitalize">{{products.name}}</p>
 							</div>
-						</div>
-					</a>
-				</div>
+						</a>
+					</div>
 
-			{% endfor %}
+				{% endfor %}
+			{% else %}
+				Aucun livre disponible avec vos critères de recherche
+			{% endif %}
 
 		</section>
 	</div>

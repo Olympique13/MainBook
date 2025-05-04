@@ -21,10 +21,15 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         $category = $form->get('category')->getData();
+        $autor = $form->get('autor')->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($category) {
-                $products = $productRepository->findByCategory($category);
+            if ($category && $autor) {
+                $products = $productRepository->findBy(['category' => $category, 'autor' => $autor]);
+            } elseif ($category) {
+                $products = $productRepository->findBy(['category' => $category]);
+            } elseif ($autor) {
+                $products = $productRepository->findBy(['autor' => $autor]);
             } else {
                 $products = $productRepository->findAll();
             }
